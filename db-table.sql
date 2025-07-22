@@ -185,15 +185,15 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 CREATE TABLE IF NOT EXISTS `registrations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `visitor_id` bigint unsigned NOT NULL,
-  `event_id` bigint unsigned NOT NULL,
+  `event_days_id` bigint unsigned NOT NULL,
   `status` enum('Pending','Confirmed','Cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `payment_status` enum('Unpaid','Paid','Failed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id`),
   KEY `FK_registrations_visitor` (`visitor_id`),
-  KEY `FK_registrations_events` (`event_id`),
-  CONSTRAINT `FK_registrations_events` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  KEY `FK_registrations_events` (`event_days_id`) USING BTREE,
+  CONSTRAINT `FK_registrations_event_days` FOREIGN KEY (`event_days_id`) REFERENCES `event_days` (`id`),
   CONSTRAINT `FK_registrations_visitor` FOREIGN KEY (`visitor_id`) REFERENCES `visitor` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -228,15 +228,12 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
 CREATE TABLE IF NOT EXISTS `tickets` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `registration_id` bigint unsigned NOT NULL,
-  `event_day_id` bigint unsigned NOT NULL,
   `qr_code_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `issued_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT (now()),
   `updated_at` timestamp NULL DEFAULT (now()),
   PRIMARY KEY (`id`),
   KEY `FK_tickets_registrations` (`registration_id`),
-  KEY `FK_tickets_event_days` (`event_day_id`),
-  CONSTRAINT `FK_tickets_event_days` FOREIGN KEY (`event_day_id`) REFERENCES `event_days` (`id`),
   CONSTRAINT `FK_tickets_registrations` FOREIGN KEY (`registration_id`) REFERENCES `registrations` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

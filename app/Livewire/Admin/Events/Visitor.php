@@ -7,32 +7,43 @@ use App\Models\Event;
 use App\Models\EventDay;
 use App\Models\Registration;
 use App\Models\Visitor as VisitorModel;
+use Livewire\WithPagination;
 
 class Visitor extends Component
 {
+    use WithPagination;
+    protected string $paginationTheme = 'bootstrap';
+
     public $event;
-    public $eventDayId;
+    public $eventDayId = 47;
     public $eventDays = [];
+
 
     public function mount($event)
     {
         $this->event = $event instanceof Event ? $event : Event::findOrFail($event);
         $this->eventDays = EventDay::where('event_id', $this->event->id)->get();
-        $this->eventDayId = $this->eventDays->first()->id ?? null;
+        $this->eventDayId = $this->eventDays->first()?->id ?? null;
+    }
+
+    public function updatedEventDayId($value)
+    {
+        $this->eventDayId = intval($value);
     }
 
     public function render()
     {
-        // Ambil visitor berdasarkan event_day yang dipilih
-        $visitors = [];
+        $registrations = collect();
         if ($this->eventDayId) {
-            $registrations = Registration::where('event_id', $this->event->id)->pluck('visitor_id');
-            $visitors = VisitorModel::whereIn('id', $registrations)->get();
+            $registrations = Registration::with(['visitor', 'payment', 'ticket'])
+                ->where('event_day_id', $this->eventDayId)
+                ->paginate(2);
         }
         return view('admin.events.livewire.visitor', [
-            'visitors' => $visitors,
+            'registrations' => $registrations,
             'eventDays' => $this->eventDays,
             'eventDayId' => $this->eventDayId,
         ]);
     }
 }
+

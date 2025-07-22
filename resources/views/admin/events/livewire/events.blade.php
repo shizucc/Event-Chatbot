@@ -2,18 +2,21 @@
 <div class="p-3">
   <div class="row g-2 mb-3">
       <div class="col-md-3">
-          <input type="text" class="form-control" placeholder="Cari Nama Event" wire:model="searchName">
-      </div>
-      <div>searchName: {{ $searchName }}</div>
-      <div class="col-md-3">
-          <input type="date" class="form-control" wire:model="filterStart" placeholder="Start Date">
+        <label for="filter-name">Event Name</label>
+          <input id="filter-name" type="text" class="form-control" placeholder="Search event name" wire:model.live="searchName">
       </div>
       <div class="col-md-3">
-          <input type="date" class="form-control" wire:model="filterEnd" placeholder="End Date">
+         <label for="filter-start-date">Start Date</label>
+         <input id="filter-start-date" type="date" class="form-control" wire:model.lazy="filterStart" placeholder="Start Date">
+        </div>
+        <div class="col-md-3">
+        <label for="filter-start-date">End Date</label>
+        <input id="filter-end-date" type="date" class="form-control" wire:model.lazy="filterEnd" placeholder="End Date">
       </div>
       <div class="col-md-3">
-          <select class="form-control" wire:model="filterStatus">
-              <option value="">Semua Status</option>
+        <label for="filter-status">Event Status</label>
+          <select id="filter-status" class="form-control" wire:model.lazy="filterStatus">
+              <option value="">All Status</option>
               <option value="Online">Online</option>
               <option value="Offline">Offline</option>
           </select>

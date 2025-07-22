@@ -26,8 +26,8 @@ class Registration extends Model
         return $this->hasOne(Payment::class, 'registration_id');
     }
 
-    public function tickets()
+    public function ticket()
     {
-        return $this->hasMany(Ticket::class, 'registration_id');
+        return $this->hasOne(Ticket::class, 'registration_id');
     }
 } 
