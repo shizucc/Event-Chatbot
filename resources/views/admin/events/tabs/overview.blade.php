@@ -1,4 +1,10 @@
-<h1>Ini overview<h1>
 <div>
-    @livewire('admin.events.edit-event')
+    @livewire('admin.events.show-event', ['event' => $event])
+
+
+    <script>
+        window.addEventListener('eventUpdated', () => {
+            $('#modal-edit-form').modal('hide');
+        });
+    </script>
 </div>

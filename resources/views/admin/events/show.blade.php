@@ -7,7 +7,7 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0">{{ $event->name }}</h5>
+                            <h5 class="mb-0">Event Details</h5>
                         </div>
                     </div>
                 @livewire('admin.events.event-tab', ['event' => $event])

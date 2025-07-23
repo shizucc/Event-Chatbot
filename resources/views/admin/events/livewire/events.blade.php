@@ -1,5 +1,13 @@
 @php use Illuminate\Support\Str; use Carbon\Carbon; @endphp
 <div class="p-3">
+  @if ($flashMessage)
+      <div class="alert alert-{{ $flashType }} alert-dismissible fade show" role="alert">
+        <span class="alert-text" style="color:white">{{ $flashMessage }}</span><span><a style="color:white" href={{ route('admin.events.show', $flashEventId) }}> Click here to go to details </a> </span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+  @endif
   <div class="row g-2 mb-3">
       <div class="col-md-3">
         <label for="filter-name">Event Name</label>

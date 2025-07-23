@@ -16,6 +16,17 @@ class Events extends Component
     public $filterStart = '';
     public $filterEnd = '';
     public $filterStatus = '';
+    public $flashMessage = null;
+    public $flashType = null;
+    public $flashEventId = null;
+
+    protected $listeners = ['eventCreated' => 'handleEventCreated'];
+    public function handleEventCreated($payload)
+    {
+        $this->flashMessage = $payload['message'];
+        $this->flashType = $payload['success'] ? 'success' : 'danger';
+        $this->flashEventId = $payload['event_id'];
+    }
 
     public function updating($property)
     {

@@ -21,16 +21,23 @@ class CreateEvent extends Component
     {
         $this->validate();
 
-        Event::create([
-            'name' => $this->name,
-            'start_datetime' => $this->start_datetime,
-            'end_datetime' => $this->end_datetime,
-        ]);
+        try {
+            $event = Event::create([
+                'name' => $this->name,
+                'start_datetime' => $this->start_datetime,
+                'end_datetime' => $this->end_datetime,
+            ]);
 
-        // Reset form
-        $this->reset(['name', 'start_datetime', 'end_datetime']);
-        // Emit event jika ingin trigger refresh tabel atau tutup modal
-        $this->dispatch('eventCreated');
+            // Reset form
+            $this->reset(['name', 'start_datetime', 'end_datetime']);
+            $this->dispatch('eventCreated', [
+                'success' => true,
+                'message' => 'Event created successfully!',
+                'event_id' => $event->id, 
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('eventCreated', ['success' => false, 'message' => 'Failed to create event: ' . $e->getMessage()]);
+        }
     }
 
     public function render()
