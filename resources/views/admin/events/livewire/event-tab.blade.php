@@ -32,7 +32,7 @@
         @if($activeTab === 'overview')
             @include('admin.events.tabs.overview', ['event' => $event])
         @elseif($activeTab === 'registration')
-            @livewire('admin.events.registration-flow', ['event' => $event->id], key('registration-flow-'.$event->id))
+            @include('admin.events.tabs.registration-flow', ['event' => $event])
         @elseif($activeTab === 'visitor')
             @livewire('admin.events.visitor', ['event' => $event])
         @endif

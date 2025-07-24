@@ -48,6 +48,7 @@
   <!-- CSS Files -->
   {{-- <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" /> --}}
   <link id="pagestyle" href={{ asset('css/soft-ui-dashboard.css') }} rel="stylesheet" />
+  <link id="pagestyle" href={{ asset('vendor/drawflow/drawflow.min.css') }} rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
@@ -74,6 +75,7 @@
   <script src={{ asset('js/plugins/fullcalendar.min.js') }}></script>
   <script src={{ asset('js/plugins/chartjs.min.js') }}></script>
   <script src={{ asset('js/plugins/jquery-3.7.1.min.js') }}></script>
+ 
   
   @stack('rtl')
   @stack('dashboard')
