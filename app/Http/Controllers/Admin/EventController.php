@@ -34,4 +34,10 @@ class EventController extends Controller
         $event = Event::findOrFail($event);
         return view('admin.events.tabs.scanner', compact('event'));
     }
+
+    public function registrationFlow($event)
+    {
+        $event = Event::findOrFail($event);
+        return view('admin.events.tabs.registration-flow', compact('event'));
+    }
 } 

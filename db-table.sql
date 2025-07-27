@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
 
@@ -69,7 +69,9 @@ CREATE TABLE IF NOT EXISTS `event_days` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT (now()),
   `updated_at` timestamp NULL DEFAULT (now()),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_event_days_events` (`event_id`),
+  CONSTRAINT `FK_event_days_events` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
@@ -85,6 +87,20 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table chatbot-wa.flows
+CREATE TABLE IF NOT EXISTS `flows` (
+  `id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `flow_json` json DEFAULT NULL,
+  `is_active` tinyint DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT (now()),
+  `updated_at` timestamp NULL DEFAULT (now()),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
@@ -185,15 +201,15 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 CREATE TABLE IF NOT EXISTS `registrations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `visitor_id` bigint unsigned NOT NULL,
-  `event_days_id` bigint unsigned NOT NULL,
+  `event_day_id` bigint unsigned NOT NULL,
   `status` enum('Pending','Confirmed','Cancelled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Pending',
   `payment_status` enum('Unpaid','Paid','Failed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Unpaid',
   `created_at` timestamp NOT NULL DEFAULT (now()),
   `updated_at` timestamp NOT NULL DEFAULT (now()),
   PRIMARY KEY (`id`),
   KEY `FK_registrations_visitor` (`visitor_id`),
-  KEY `FK_registrations_events` (`event_days_id`) USING BTREE,
-  CONSTRAINT `FK_registrations_event_days` FOREIGN KEY (`event_days_id`) REFERENCES `event_days` (`id`),
+  KEY `FK_registrations_events` (`event_day_id`) USING BTREE,
+  CONSTRAINT `FK_registrations_event_days` FOREIGN KEY (`event_day_id`) REFERENCES `event_days` (`id`),
   CONSTRAINT `FK_registrations_visitor` FOREIGN KEY (`visitor_id`) REFERENCES `visitor` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

@@ -59,7 +59,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('events/{event}/edit', [\App\Http\Controllers\Admin\EventController::class, 'edit'])->name('admin.events.edit');
     Route::get('events/{event}', [\App\Http\Controllers\Admin\EventController::class, 'show'])->name('admin.events.show');
     Route::get('events/{event}/scanner', [\App\Http\Controllers\Admin\EventController::class, 'scanner'])->name('admin.events.scanner');
-
+    Route::get('events/{event}/registration-flow', [\App\Http\Controllers\Admin\EventController::class, 'registrationFlow'])->name('admin.events.registration-flow');
+    Route::get('/admin/events/{id}/flow', [\App\Http\Controllers\Admin\EventController::class, 'getFlow']);
+    Route::post('/admin/events/{id}/flow', [\App\Http\Controllers\Admin\EventController::class, 'saveFlow']);
     // Tickets CRUD
     Route::view('tickets', 'admin.tickets.index')->name('admin.tickets.index');
     Route::view('tickets/create', 'admin.tickets.create')->name('admin.tickets.create');
@@ -86,6 +88,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     // Settings
     Route::view('settings', 'admin.settings.index')->name('admin.settings.index');
+
+    // E
+
 });
 
 require __DIR__.'/auth.php';

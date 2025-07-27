@@ -8,8 +8,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link mb-0 px-0 py-1 @if($activeTab === 'registration') active @endif"
-               wire:click.prevent="setTab('registration')" href="#">
+            <a class="nav-link mb-0 px-0 py-1"
+               href="{{ route('admin.events.registration-flow', $event) }}">
                 <i class="ni ni-laptop text-sm me-2"></i> Registration Flow
             </a>
         </li>
@@ -31,8 +31,6 @@
     <div class="tab-content mt-3">
         @if($activeTab === 'overview')
             @include('admin.events.tabs.overview', ['event' => $event])
-        @elseif($activeTab === 'registration')
-            @include('admin.events.tabs.registration-flow', ['event' => $event])
         @elseif($activeTab === 'visitor')
             @livewire('admin.events.visitor', ['event' => $event])
         @endif
