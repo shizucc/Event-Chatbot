@@ -20,4 +20,9 @@ class EventDay extends Model
     {
         return $this->hasMany(Ticket::class, 'event_day_id');
     }
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class, 'event_day_id');
+    }
 } 
