@@ -39,9 +39,28 @@
             @foreach ($eventDays as $eventDay)
                 <div class="card shadow-sm border-0" style="width: 20rem; min-width: 250px;">
                     <div class="card-body p-4">
-                        <h5 class="card-title  fw-bold mb-2">
-                            {{ $eventDay->name }}
-                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title  fw-bold mb-2">
+                                {{ $eventDay->name }}
+                            </h5>
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button"
+                                    id="dropdownMenuButton-{{ $eventDay->id }}" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $eventDay->id }}">
+                                    <li>
+                                        <a href="#" class="dropdown-item"
+                                            wire:click.prevent="$dispatch('editEventDay', {{ $eventDay->id }})">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
                         <p class="mb-1 text-muted">
                             Price : {{ $eventDay->price ? format_rupiah($eventDay->price) : 'Free Entry' }}
                         </p>
@@ -74,6 +93,17 @@
                     </div>
                 </div>
             @endforeach
+            <!-- Modal edit global -->
+            <div class="modal fade" id="modal-edit-event-day" tabindex="-1" role="dialog"
+                aria-labelledby="modal-edit-event-day" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body p-0">
+                            <livewire:admin.events.edit-event-day />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
