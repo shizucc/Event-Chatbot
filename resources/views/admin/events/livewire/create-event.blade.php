@@ -12,15 +12,15 @@
 
       <label>Start Date</label>
       <div class="input-group mb-3">
-        <input type="datetime-local" class="form-control" placeholder="Start Date" wire:model.defer="start_datetime">
+        <input type="date" class="form-control" placeholder="Start Date" wire:model.defer="start_date">
       </div>
-      @error('start_datetime') <span class="text-danger">{{ $message }}</span> @enderror
+      @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
 
       <label>End Date</label>
       <div class="input-group mb-3">
-        <input type="datetime-local" class="form-control" placeholder="End Date" wire:model.defer="end_datetime">
+        <input type="date" class="form-control" placeholder="End Date" wire:model.defer="end_date">
       </div>
-      @error('end_datetime') <span class="text-danger">{{ $message }}</span> @enderror
+      @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
 
       <div class="text-center">
         <button type="submit" class="btn btn-round bg-gradient-info btn-lg w-100 mt-4 mb-0">Create</button>

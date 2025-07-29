@@ -7,5 +7,8 @@
         window.addEventListener('eventUpdated', () => {
             $('#modal-edit-form').modal('hide');
         });
+        window.addEventListener('eventDayCreated', () => {
+            $('#modalAddEventDays').modal('hide');
+        });
     </script>
 </div>

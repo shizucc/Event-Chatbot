@@ -20,14 +20,14 @@
             <div class="d-flex flex-row justify-content-between pb-0">
                 <h5>Event Days</h5>
                 <div>
-                    <button type="button" class="btn btn-block btn-default mb-3" data-bs-toggle="modal"
-                        data-bs-target="#modal-form">Add Event Days</button>
-                    <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                    <button class="btn btn-block btn-default mb-3" data-bs-toggle="modal"
+                        data-bs-target="#modalAddEventDays">Add Event Days</button>
+                    <div class="modal fade text-start" id="modalAddEventDays" tabindex="-1" role="dialog"
+                        aria-labelledby="modalAddEventDays" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body p-0">
-                                    <h3>Ini modal add Event Days</h3>
+                                    @livewire('admin.events.create-event-day', ['event' => $event])
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,8 @@
                                 <span class="fw-semibold">Check In</span>
                             </div>
                             <div class="d-flex align-items-center">
-                                <span class="stat-circle me-2 text-bold">{{ count($eventDay->registrations) - $eventDay->total_check_in }}</span>
+                                <span
+                                    class="stat-circle me-2 text-bold">{{ count($eventDay->registrations) - $eventDay->total_check_in }}</span>
                                 <span class="fw-semibold">Not Check In</span>
                             </div>
                         </div>

@@ -8,13 +8,13 @@ use App\Models\Event;
 class CreateEvent extends Component
 {
     public $name;
-    public $start_datetime;
-    public $end_datetime;
+    public $start_date;
+    public $end_date;
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'start_datetime' => 'required|date',
-        'end_datetime' => 'required|date|after_or_equal:start_datetime',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
     ];
 
     public function save()
@@ -24,12 +24,12 @@ class CreateEvent extends Component
         try {
             $event = Event::create([
                 'name' => $this->name,
-                'start_datetime' => $this->start_datetime,
-                'end_datetime' => $this->end_datetime,
+                'start_date' => $this->start_date,
+                'end_date' => $this->end_date,
             ]);
 
             // Reset form
-            $this->reset(['name', 'start_datetime', 'end_datetime']);
+            $this->reset(['name', 'start_date', 'end_date']);
             $this->dispatch('eventCreated', [
                 'success' => true,
                 'message' => 'Event created successfully!',

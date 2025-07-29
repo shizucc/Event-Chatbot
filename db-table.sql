@@ -65,10 +65,14 @@ CREATE TABLE IF NOT EXISTS `events` (
 CREATE TABLE IF NOT EXISTS `event_days` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `event_id` bigint unsigned NOT NULL,
-  `day_date` timestamp NULL DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `day_date` date DEFAULT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT (now()),
   `updated_at` timestamp NULL DEFAULT (now()),
+  `open_gate_time` time DEFAULT NULL,
+  `close_gate_time` time DEFAULT NULL,
+  `price` decimal(20,6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_event_days_events` (`event_id`),
   CONSTRAINT `FK_event_days_events` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
@@ -102,6 +106,22 @@ CREATE TABLE IF NOT EXISTS `flows` (
   `updated_at` timestamp NULL DEFAULT (now()),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Data exporting was unselected.
+
+-- Dumping structure for table chatbot-wa.flow_nodes
+CREATE TABLE IF NOT EXISTS `flow_nodes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `config` json DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT (now()),
+  `updated_at` timestamp NULL DEFAULT (now()),
+  `rule_input` json DEFAULT NULL,
+  `rule_output` json DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Data exporting was unselected.
 
@@ -248,6 +268,7 @@ CREATE TABLE IF NOT EXISTS `tickets` (
   `issued_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT (now()),
   `updated_at` timestamp NULL DEFAULT (now()),
+  `scanned_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_tickets_registrations` (`registration_id`),
   CONSTRAINT `FK_tickets_registrations` FOREIGN KEY (`registration_id`) REFERENCES `registrations` (`id`)

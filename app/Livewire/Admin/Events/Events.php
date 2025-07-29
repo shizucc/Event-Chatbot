@@ -41,21 +41,21 @@ class Events extends Component
             $query->where('name', 'like', '%' . $this->searchName . '%');
         }
         if ($this->filterStart) {
-            $query->where('start_datetime', '>=', $this->filterStart);
+            $query->where('start_date', '>=', $this->filterStart);
         }
         if ($this->filterEnd) {
-            $query->where('end_datetime', '<=', $this->filterEnd);
+            $query->where('end_date', '<=', $this->filterEnd);
         }
         // Status dummy: event dengan start_datetime di masa depan = Online, selain itu Offline
         if ($this->filterStatus) {
             if ($this->filterStatus === 'Online') {
-                $query->where('start_datetime', '>=', now());
+                $query->where('start_date', '>=', now());
             } elseif ($this->filterStatus === 'Offline') {
-                $query->where('start_datetime', '<', now());
+                $query->where('start_date', '<', now());
             }
         }
 
-        $events = $query->orderByDesc('start_datetime')->paginate(10);
+        $events = $query->orderByDesc('start_date')->paginate(10);
         return view('admin.events.livewire.events', compact('events'));
     }
 }
