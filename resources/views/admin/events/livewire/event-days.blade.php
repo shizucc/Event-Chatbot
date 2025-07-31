@@ -27,7 +27,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body p-0">
-                                    @livewire('admin.events.create-event-day', ['event' => $event])
+                                    <livewire:admin.events.create-event-day :event="$event" />
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $eventDay->id }}">
                                     <li>
                                         <a href="#" class="dropdown-item"
-                                            wire:click.prevent="$dispatch('editEventDay', {{ $eventDay->id }})">
+                                            wire:click.prevent="$dispatch('editEventDay', {event: {{ $event }}, dayId: {{ $eventDay->id }}})">
                                             Edit
                                         </a>
                                     </li>

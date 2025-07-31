@@ -36,7 +36,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-body p-0">
-                            @livewire('admin.events.edit-event', ['event' => $event])
+                            <livewire:admin.events.edit-event :event="$event" />
                         </div>
                     </div>
                 </div>

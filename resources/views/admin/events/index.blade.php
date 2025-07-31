@@ -16,14 +16,14 @@
                                     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                         <div class="modal-content">
                                             <div class="modal-body p-0">
-                                                @livewire('admin.events.create-event')
+                                                <livewire:admin.events.create-event />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @livewire('admin.events.events')
+                        <livewire:admin.events.events />
 
                     </div>
                 </div>

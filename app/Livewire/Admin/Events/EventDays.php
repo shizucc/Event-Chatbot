@@ -20,8 +20,18 @@ class EventDays extends Component
     }
     protected $listeners = [
         'eventDayCreated' => 'handleEventDaysCreated',
+        'eventDayUpdated' => 'handleEventDaysUpdated',
     ];
     public function handleEventDaysCreated($payload)
+    {
+        if ($payload['success']) {
+            $this->loadEventDays();
+            session()->flash('success', $payload['message']);
+        } else {
+            session()->flash('error', $payload['message']);
+        }
+    }
+    public function handleEventDaysUpdated($payload)
     {
         if ($payload['success']) {
             $this->loadEventDays();
